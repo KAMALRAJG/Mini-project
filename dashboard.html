@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dashboard</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <style>
+    /* Set the height of carousel items to 100vh (viewport height) */
+    .carousel-inner .item img {
+      width: 100%;
+      height: 75vh;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body> 
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">    
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="WhatsApp Image 2023-03-15 at 10.45.00 AM.jpeg" alt="HunterxHunter">
+      </div>
+
+      <div class="item">
+        <img src="WhatsApp Image 2023-03-15 at 10.45.02 AM (1).jpeg" alt="Jujutsu Kaisan">
+      </div>
+    
+      <div class="item">
+        <img src="WhatsApp Image 2023-03-15 at 10.45.04 AM (2).jpeg" alt="Deamon Slayer">
+      </div>
+    </div>
+
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div> 
+  
+  <h1 style="text-align: center;">Class 10</h1>
+  
+  <div class="container">
+  
+    <button type="button" class="btn btn-primary pull-right add-student-button" data-toggle="modal" data-target="#addStudentModal">Add Student</button><br><br><br>
+    
+    <table id="studentsTable" class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Class</th>
+          <th>Percentage</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Kishore</td>
+          <td>10</td>
+          <td>50</td>
+          <td>Pass</td>
+          <td><button type="button" class="btn btn-danger">Delete</button></td>
+        </tr>
+        <tr>
+          <td>Raj</td>
+          <td>10</td>
+          <td>40</td>
+          <td>Fail</td>
+          <td><button type="button" class="btn btn-danger">Delete</button></td>
+        </tr>
+        <tr>
+          <td>Ram</td>
+          <td>10</td>
+          <td>30</td>
+          <td>Fail</td>
+          <td><button type="button" class="btn btn-danger">Delete</button></td>
+        </tr>
+        <tr>
+          <td>Seetha</td>
+          <td>10</td>
+          <td>70</td>
+          <td>Pass</td>
+          <td><button type="button" class="btn btn-danger">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Logout button -->
+    <button type="button" class="btn btn-danger pull-right" id="logoutButton">Logout</button>
+  </div>
+
+ <!-- Add Student Modal -->
+ <div id="addStudentModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Student</h4>
+      </div>
+      <div class="modal-body">
+        <form id="studentForm">
+          <div class="form-group">
+            <label for="studentName">Student Name:</label>
+            <input type="text" class="form-control" id="studentName" required>
+          </div>
+          <div class="form-group">
+            <label for="studentClass">Class:</label>
+            <select class="form-control" id="studentClass">
+              <option value="10">Class 10</option>
+              <option value="11">Class 11</option>
+              <option value="12">Class 12</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="studentPercentage">Percentage:</label>
+            <input type="number" class="form-control" id="studentPercentage" min="1" max="100" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveStudent">Add Student</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script>
+    // JavaScript code to add a new student row
+    $(document).ready(function() {
+      $("#saveStudent").click(function() {
+        // Get input values
+        var studentName = $("#studentName").val();
+        var studentClass = $("#studentClass").val();
+        var studentPercentage = $("#studentPercentage").val();
+        var studentStatus = studentPercentage >= 50 ? "Pass" : "Fail";
+
+        // Add a new row to the table
+        $("#studentsTable tbody").append("<tr><td>" + studentName + "</td><td>" + studentClass + "</td><td>" + studentPercentage + "</td><td>" + studentStatus + "</td><td><button type='button' class='btn btn-danger delete-button'>Delete</button></td></tr>");
+
+        // Clear input fields
+        $("#studentForm")[0].reset();
+
+        // Close the modal
+        $("#addStudentModal").modal("hide");
+      });
+    // JavaScript code to handle the delete button click
+    $("#studentsTable").on("click", ".delete-button", function() {
+        var confirmation = confirm("Do you want to delete this student?");
+        if (confirmation) {
+          // Delete the row
+          $(this).closest("tr").remove();
+        }
+      });
+    // JavaScript code to handle the logout button click
+    $("#logoutButton").click(function() {
+        // Redirect to the login page (replace "login.html" with your actual login page URL)
+        window.location.href = "login.html";
+      });
+    });
+  </script>
+</body>
+</html>
