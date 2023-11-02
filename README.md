@@ -1,1 +1,1 @@
- HTML, CSS, JavaScript mini project. I created a mini project featuring HTML, CSS, and JavaScript that includes a login/signup system and a carousel for dynamic content display. https://kamalrajg.github.io/Mini-project/
+ HTML, CSS, JavaScript mini project. I created a mini project featuring HTML, CSS, and JavaScript that includes a login/signup system and a carousel for dynamic content display. https://github.com/KAMALRAJG/Mini-project.git
